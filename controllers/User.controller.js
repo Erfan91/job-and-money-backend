@@ -110,7 +110,7 @@ module.exports.userLogin = (req,res,next)=>{
         // console.log(user._id,"DB USER><>>>>>>>>>>>>>>>>>>>>>")
         if(err){console.log(err)}
         if(!user){
-            res.json({authenticated:false})
+            res.json({authenticated:false, userInfo:info})
         }
         else{
             req.logIn(user,err =>{
@@ -118,6 +118,7 @@ module.exports.userLogin = (req,res,next)=>{
                 res.json(
                 {
                  authenticated:true,
+                 userInfo:info,
                  id:user._id
                 }
                 )

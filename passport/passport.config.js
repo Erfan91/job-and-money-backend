@@ -7,13 +7,13 @@ module.exports = function(passport){
         new localStrategy((username,password,done)=>(
             UserModel.findOne({userName:username},(err,user)=>{
                 if(err){console.log(err)}
-                if(!user) return done(null,false)
+                if(!user) return done(null,false,"username not found")
                 bcrypt.compare(password, user.password, (err,result)=>{
                     if(err){console.log(err)}
                     if(result === true){
                         return done(null,user)
                     }else{
-                        return done(null,false)
+                        return done(null,false,"incorrect password")
                     }
                 })
             })
