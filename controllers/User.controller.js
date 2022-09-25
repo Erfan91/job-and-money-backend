@@ -119,7 +119,8 @@ module.exports.userLogin = (req,res,next)=>{
                 {
                  authenticated:true,
                  userInfo:info,
-                 id:user._id
+                 id:user._id,
+                 employer:user.employer
                 }
                 )
             })

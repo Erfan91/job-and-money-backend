@@ -6,14 +6,30 @@ const CvSchema = new mongoose.Schema({
     lastName:String,
     jobTitle:String,
     contactNumber:String,
+    address:String,
     email:String,
     personalDescription:String,
-    education:String,
-    experience:String,
+    education:[
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'Education'
+        }
+    ],
+    experience:[
+        {
+            type: mongoose.Types.ObjectId,
+            ref:'Experience'
+        }
+    ],
+    jmExperience:String,
     achievement:String,
-    softSkills:String,
-    hardSkills:String,
-    experienceDocs:String
+    softSkills:[String],
+    hardSkills:[String],
+    experienceDocs:String,
+    ownerId:{
+        type: mongoose.Types.ObjectId,
+        ref:'User'
+    }
 })
 
 const CvModel = new mongoose.model('Cv',CvSchema);

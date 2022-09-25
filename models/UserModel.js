@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     },
     bankAccount:{
         type:mongoose.Types.ObjectId,
-        ref:'acounts'
+        ref:'accounts'
     }
 },
 {
