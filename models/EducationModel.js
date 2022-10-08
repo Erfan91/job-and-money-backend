@@ -6,7 +6,7 @@ const EducationSchema = new mongoose.Schema({
     startDate:Date,
     endDate:Date,
     city:String,
-    major:String,
+    field:String,
     description:String,
     establishment:String,
     degree:String,

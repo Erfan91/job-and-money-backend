@@ -22,10 +22,10 @@ const CvSchema = new mongoose.Schema({
         }
     ],
     jmExperience:String,
-    achievement:String,
+    achievement:[String],
     softSkills:[String],
     hardSkills:[String],
-    experienceDocs:String,
+    experienceDocs:[String],
     ownerId:{
         type: mongoose.Types.ObjectId,
         ref:'User'
