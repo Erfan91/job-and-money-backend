@@ -11,6 +11,7 @@ const offerRouter = require('./Router/offer.router')
 const cvRouter = require('./Router/cv.router');
 const expRouter = require('./Router/experience.router')
 const eduRouter = require('./Router/education.router')
+const accRouter = require('./Router/account.router')
 const passport = require('passport');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -33,6 +34,7 @@ app.use('/offer', offerRouter)
 app.use('/cv',cvRouter)
 app.use('/exp',expRouter);
 app.use('/edu', eduRouter);
+app.use('/acc', accRouter)
 app.use('/images', express.static('images'))
 app.use(passport.session());
 app.use(passport.initialize());
