@@ -1,7 +1,9 @@
 const OfferModel = require('../models/OfferModel')
 const multer = require('multer')
 const path = require('path')
-
+const { json } = require('express')
+const UserModel = require('../models/UserModel')
+const NotificationModel = require('../models/NotificationModel')
 module.exports.offerPost = (req,res,next)=>{
     const body = req.body
     OfferModel.create(body).then(result=>{
@@ -19,12 +21,41 @@ module.exports.offerGet = (req,res,next)=>{
     })
 }
 
-module.exports.offerUpdate = (req,res,next)=>{
-    const body = req.body;
-    OfferModel.findByIdAndUpdate(body.offerId,{$push:{candidates: body.workerId}})
+module.exports.offerGetApplied = (req,res,next)=>{
+    const body = req.params._id
+    OfferModel.findOne({candidates:body})
+    .exec()
     .then(result=>{
         console.log(result)
         res.json(result)
+    })
+}
+
+module.exports.offerUpdate = (req,res,next)=>{
+    const body = req.body;
+    OfferModel.find({candidates:{$in:body.workerId}, _id:body.offerId})
+    .exec()
+    .then(result=>{
+        if(result.length){
+            console.log(result)
+            res.json({message:"You have already applied for this offer"})
+        }else{
+            OfferModel.findByIdAndUpdate(body.offerId,{$push:{candidates: body.workerId}})
+            .then(result=>{
+                if(result){
+                    console.log(result)
+                    res.json({message:"You have successfully applied for this offer"})
+                    NotificationModel.create({
+                        ownerId:body.posterId,
+                        subjectId: body.offerId,
+                        userId:body.workerId,
+                        message:" applied to your offer"
+                    }).then(result=>{
+                        console.log(result, "This is notification Result")
+                    })
+                }
+            })
+        }
     })
 }
 

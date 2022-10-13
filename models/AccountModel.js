@@ -6,6 +6,7 @@ const AccountShcema = new mongoose.Schema({
     validityDate : Date,
     cardNumber : Number,
     cvv : Number,
+    cardName: String,
     ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'

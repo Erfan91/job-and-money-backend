@@ -1,11 +1,20 @@
 const AccountModel = require('../models/AccountModel');
-
+const UserModel = require('../models/UserModel');
 module.exports.accPost = (req,res,next)=>{
     const body = req.body
-    AccountModel.create(body)
+    UserModel.findById(body.ownerId)
+    .exec()
     .then(result=>{
-        console.log(result)
-        res.json(result)
+        if(result.name + ' ' + result.surName !== body.fullName){
+            console.log("name didn't match")
+            res.status(400).json({message:"card holder name didn't matched"})
+        }else{
+            AccountModel.create(body)
+            .then(result=>{
+                console.log(result)
+                res.json(result)
+            })
+        }
     })
 }
 

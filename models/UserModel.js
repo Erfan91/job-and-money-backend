@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
     bankAccount:{
         type:mongoose.Types.ObjectId,
         ref:'accounts'
-    }
+    },
 },
 {
     timestamps:true
