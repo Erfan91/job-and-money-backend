@@ -14,6 +14,7 @@ module.exports.notifGet = (req,res,next)=>{
     NotificationModel.find({ownerId:body})
     .populate('subjectId')
     .populate('userId')
+    .sort({createdAt:-1})
     .then(result=>{
         console.log(result)
         res.json(result)
@@ -22,7 +23,7 @@ module.exports.notifGet = (req,res,next)=>{
 
 module.exports.notifUpdate = (req,res,next)=>{
     const body = req.body;
-    NotificationModel.updateOne({ownerId:body.ownerId},{message:body.message})
+    NotificationModel.updateOne({_id:body._id},{seen: true})
     .exec()
     .then(result=>{
         console.log(result)

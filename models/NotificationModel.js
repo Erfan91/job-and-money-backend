@@ -17,7 +17,8 @@ const NotificationSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref:'Notification'
     },
-    message:String
+    message:String,
+    seen:Boolean
 },{
     timestamps:true
 });
