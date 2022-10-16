@@ -31,6 +31,18 @@ module.exports.offerGetApplied = (req,res,next)=>{
     })
 }
 
+module.exports.offerGetNtfnOffer = (req,res,next)=>{
+    const id = req.params.id
+    OfferModel.findById(id)
+    .populate('posterID')
+    .populate('candidates')
+    .exec()
+    .then(result=>{
+        console.log(result)
+        res.json(result)
+    })
+}
+
 module.exports.offerUpdate = (req,res,next)=>{
     const body = req.body;
     OfferModel.find({candidates:{$in:body.workerId}, _id:body.offerId})
