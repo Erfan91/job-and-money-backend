@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
+require('dotenv').config()
 
-mongoose.connect("mongodb://" + process.env.URL_MONGO_DB + "/jobandmoney",()=>{
-    console.log('connected to DB successfuly')
-    },
-    console.log("Error! couldn't connect to DB")
-)
+mongoose.connect('mongodb://0.0.0.0:27017/jobandmoney')
+.then(()=>console.log('connected to db'))
+.catch((err)=>console.log(err))

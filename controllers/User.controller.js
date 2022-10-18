@@ -7,7 +7,7 @@ const passport = require('passport')
 module.exports.userPost = async (req,res,next)=>{
     const body = req.body;
     const hashedPassword = await bcrypt.hash(body.password, 10)
-    UserModel.findOne({userName:body.userName})
+   await UserModel.findOne({userName:body.userName})
     .exec()
     .then(result=>{
         if(result){
@@ -102,18 +102,18 @@ module.exports.imgUpload = (req,res)=>{
     })
 }
 
-module.exports.userLogin = (req,res,next)=>{
+module.exports.userLogin = async(req,res,next)=>{
     const body = req.body
     console.log(body)
-    passport.authenticate('local',(err,user,info) => {
+   await passport.authenticate('local',(err,user,info) => {
         // console.log(Boolean(user))
         // console.log(user._id,"DB USER><>>>>>>>>>>>>>>>>>>>>>")
         if(err){console.log(err)}
         if(!user){
             res.json({authenticated:false, userInfo:info})
         }
-        else{
-            req.logIn(user,err =>{
+        else {
+           req.logIn(user,err =>{
                 if(err){console.log(err)}
                 res.json(
                 {
@@ -128,10 +128,10 @@ module.exports.userLogin = (req,res,next)=>{
     })(req,res,next)
 }
 
-module.exports.getInfo = (req,res,next)=>{
+module.exports.getInfo = async(req,res,next)=>{
     const id = req.params._id;
 //    const _id = JSON.parse(id)
-    UserModel.findById(id)
+   await UserModel.findById(id)
     .exec()
     .then(result=>{
         console.log(result)

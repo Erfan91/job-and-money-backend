@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const mongoose = require('mongoose')
 
+
 const UserSchema = new mongoose.Schema({
     employer:Boolean,
     userName:String,
@@ -30,6 +31,5 @@ const UserSchema = new mongoose.Schema({
 );
 
 const UserModel = new mongoose.model('User', UserSchema);
-
 module.exports = UserModel;
 // module.exports = router;
