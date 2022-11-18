@@ -48,6 +48,20 @@ module.exports.userPost = async (req,res,next)=>{
     
 }
 
+module.exports.srchdUser = (req,res,next)=>{
+    const body = req.body
+    if(body.username == ""){
+        res.status(401).json({message:"bad request"})
+    }else{
+    UserModel.find({userName: body.username, city: body.city})
+    .exec()
+    .then(result=>{
+        console.log(result)
+        res.json(result)
+    })
+}
+}
+
 module.exports.userGet = (req,res,next)=>{
     UserModel.find()
     .exec()
@@ -55,6 +69,24 @@ module.exports.userGet = (req,res,next)=>{
         console.log(result)
         res.json(result)
     })
+}
+
+module.exports.getMsg = (req,res,next)=>{
+    const id = req.params.id
+    UserModel.findById(id)
+    .populate('messages')
+    .populate({
+        path: 'messages',
+        populate:{
+            path:'sender',
+            model:'User'
+        }
+    })
+    .then(result=>{
+        console.log(result)
+        res.json(result.messages)
+    })
+
 }
 
 module.exports.userUpdate = (req,res,next)=>{
@@ -104,10 +136,7 @@ module.exports.imgUpload = (req,res)=>{
 
 module.exports.userLogin = async(req,res,next)=>{
     const body = req.body
-    console.log(body)
    await passport.authenticate('local',(err,user,info) => {
-        // console.log(Boolean(user))
-        // console.log(user._id,"DB USER><>>>>>>>>>>>>>>>>>>>>>")
         if(err){console.log(err)}
         if(!user){
             res.json({authenticated:false, userInfo:info})

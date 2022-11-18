@@ -7,15 +7,12 @@ const UserSchema = new mongoose.Schema({
     userName:String,
     name: String,
     surName: String,
-    dateOfBirth: String,
+    dateOfBirth: Date,
     email:String,
     password:String,
     phoneNumber:String,
     image:String,
-    messages:{
-        type:mongoose.Types.ObjectId,
-        ref:'messages'
-    },
+    aboutMe: String,
     cv:{
         type:mongoose.Types.ObjectId,
         ref:'Cv'
@@ -24,6 +21,7 @@ const UserSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:'accounts'
     },
+    website: String
 },
 {
     timestamps:true

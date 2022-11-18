@@ -13,6 +13,7 @@ const expRouter = require('./Router/experience.router')
 const eduRouter = require('./Router/education.router')
 const accRouter = require('./Router/account.router')
 const notifRouter = require('./Router/notification.router')
+const msgRouter = require('./Router/message.router')
 const passport = require('passport');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -39,6 +40,7 @@ app.use('/exp',expRouter);
 app.use('/edu', eduRouter);
 app.use('/acc', accRouter)
 app.use('/ntfn', notifRouter);
+app.use('/msg', msgRouter)
 app.use('/images', express.static('images'))
 app.use(passport.session());
 app.use(passport.initialize());

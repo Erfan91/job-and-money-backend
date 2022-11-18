@@ -17,8 +17,12 @@ module.exports.cvGet = (req,res,next)=>{
     .populate('ownerId')
     .exec()
     .then(result=>{
-        console.log(result)
-        res.json(result)
+        if(result){
+            console.log(result)
+            res.json({result:result, cv: true})
+        }else{
+            res.json({cv: false, message: "User's Cv not found!"})
+        }
     })
 }
 
